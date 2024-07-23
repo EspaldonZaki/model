@@ -36,15 +36,25 @@ class StudentController extends Controller
 
       //  return Student::with('grades')->get();
 
-        return Student::with(['grades' => function($query){
-            return $query->where('grade', '>=', 90);
+      //  return Student::with(['grades' => function($query){
+      //      return $query->where('grade', '>=', 90);
 
-        }])->get();
+      //  }])->get();
     }
 
     public function store(Request $request)
     {
-        // Logic to store a new user
+        $student = new Student();
+        $student->fname = $request['fname'];
+        $student->lname = $request['lname'];
+        $student->email = $request['email'];
+        $student->phone = $request['phone'];
+        $student->address = $request['address'];
+        $student->city = $request['city'];
+        $student->province = $request['province'];
+        $student->zip = $request['zip'];
+        $student->birthdate = $request['birthdate'];
+        $student->save();
     }
 
     public function show(string $id)
@@ -61,12 +71,28 @@ class StudentController extends Controller
 
     public function update(Request $request, $id)
     {
-        // Logic to update a specific user by $id
+        $student = Student::find($id);
+        $student->fname = $request['fname'];
+        $student->lname = $request['lname'];
+        $student->email = $request['email'];
+        $student->phone = $request['phone'];
+        $student->address = $request['address'];
+        $student->city = $request['city'];
+        $student->province = $request['province'];
+        $student->zip = $request['zip'];
+        $student->birthdate = $request['birthdate'];
+        $student->save();
     }
 
     public function destroy($id)
     {
-        // Logic to delete a specific user by $id
+        $student = Student::find($id);
+        $student->delete();
+    }
+
+    public function create()
+    {
+        
     }
 
 }
