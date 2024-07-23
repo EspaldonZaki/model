@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\SubjectGrade;
+use Carbon\Carbon;
 
 class Student extends Model
 {
@@ -23,7 +24,7 @@ class Student extends Model
         'birthdate'
     ]; 
 
-    protected $appends = ['fullname', 'birthdate'];
+    protected $appends = ['fullname', 'birthday'];
 
     public function getFullnameAttribute()
     {
@@ -36,6 +37,7 @@ class Student extends Model
         if($birthdate){
             return Carbon::parse($birthdate)->format('F d, Y');
         }
+        return 'N/A';
     }
 
     public function grade()

@@ -9,7 +9,11 @@ class StudentController extends Controller
 {
     public function index()
     {
+       
         // return Student::all();
+        
+        $data['students'] = Student::all();
+        return view('students.index', $data);
 
         // return Student::where('province', 'Alaska')->get();
 
@@ -55,6 +59,8 @@ class StudentController extends Controller
         $student->zip = $request['zip'];
         $student->birthdate = $request['birthdate'];
         $student->save();
+
+        return redirect()->to('students');
     }
 
     public function show(string $id)
@@ -69,7 +75,7 @@ class StudentController extends Controller
 
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request,string $id)
     {
         $student = Student::find($id);
         $student->fname = $request['fname'];
@@ -82,17 +88,26 @@ class StudentController extends Controller
         $student->zip = $request['zip'];
         $student->birthdate = $request['birthdate'];
         $student->save();
+
+        return redirect()->back();
     }
 
-    public function destroy($id)
+    public function destroy(string $id)
     {
         $student = Student::find($id);
         $student->delete();
+        return redirect()->to('students');
     }
 
     public function create()
     {
-        
+        return view('students.create');
+    }
+
+    public function edit(string $id)
+    {
+        $data['students'] = Student::find($id);
+        return view('students.edit', $data);
     }
 
 }
